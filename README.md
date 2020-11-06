@@ -1,9 +1,9 @@
 # ASR_Citi
 Automatic Speech Recognition specially designed for specific use case words using Deepspeech 
 
-#Steps to set up:
+# Steps to set up:
 
-#Install deepspeech
+# Install deepspeech
 # Create and activate a virtualenv
 virtualenv -p python3 $HOME/tmp/deepspeech-venv/
 source $HOME/tmp/deepspeech-venv/bin/activate
@@ -19,9 +19,9 @@ This will install acoustic model file and language model file scorer(This model 
 
 Modify the path and the name of the model and scorer in STT_H.py accordingly. 
 
-#Creating own language model file
-#Build Kenlm
-wget -O - https://kheafield.com/code/kenlm.tar.gz |tar xz
+# Creating own language model file
+# Build Kenlm
+wget -O - https://kheafield.com/code/kenlm.tar.gz | tar xz
 mkdir kenlm/build
 cd kenlm/build
 cmake ..
