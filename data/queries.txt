@@ -1,0 +1,56 @@
+select inrcash
+select uscorp
+select gbpcash
+select usmuni
+select inrcash and uscorp
+select inrcash but not uscorp
+select inrcash and gbpcash
+select inrcash but not gbpcash
+select inrcash and usmuni
+select inrcash but not usmuni
+select uscorp and gbpcash
+select uscorp but not gbpcash
+select uscorp and usmuni
+select uscorp but not usmuni
+select gbpcash and usmuni
+select gbpcash but not usmuni
+select inrcash and uscorp and gbpcash
+select inrcash and uscorp but not gbpcash
+select inrcash but not uscorp but not gbpcash
+select inrcash and uscorp and usmuni
+select inrcash and uscorp but not usmuni
+select inrcash but not uscorp but not usmuni
+select inrcash and gbpcash and usmuni
+select inrcash and gbpcash but not usmuni
+select inrcash but not gbpcash but not usmuni
+select uscorp and gbpcash and usmuni
+select uscorp and gbpcash but not usmuni
+select uscorp but not gbpcash but not usmuni
+filter inrcash
+filter uscorp
+filter gbpcash
+filter usmuni
+filter inrcash and uscorp
+filter inrcash but not uscorp
+filter inrcash and gbpcash
+filter inrcash but not gbpcash
+filter inrcash and usmuni
+filter inrcash but not usmuni
+filter uscorp and gbpcash
+filter uscorp but not gbpcash
+filter uscorp and usmuni
+filter uscorp but not usmuni
+filter gbpcash and usmuni
+filter gbpcash but not usmuni
+filter inrcash and uscorp and gbpcash
+filter inrcash and uscorp but not gbpcash
+filter inrcash but not uscorp but not gbpcash
+filter inrcash and uscorp and usmuni
+filter inrcash and uscorp but not usmuni
+filter inrcash but not uscorp but not usmuni
+filter inrcash and gbpcash and usmuni
+filter inrcash and gbpcash but not usmuni
+filter inrcash but not gbpcash but not usmuni
+filter uscorp and gbpcash and usmuni
+filter uscorp and gbpcash but not usmuni
+filter uscorp but not gbpcash but not usmuni
