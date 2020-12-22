@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home - citi</title>
-</head>
-<body>
+{% extends "base.html" %}
 
-<div id="toc_container">
+{% block content %}
+    <h1>Platform index</h1>
+    <div id="toc_container">
 <p class="toc_title">Menu items</p>
 <ul class="toc_list">
   <li><a href="/record">1. Record new sample</a>
@@ -20,5 +16,4 @@
 </ul>
 </div>
 
-</body>
-</html>
+{% endblock %}

@@ -138,7 +138,7 @@ function createDownloadLink(blob) {
     li.appendChild(au);
 
     //add the filename to the li
-    li.appendChild(document.createTextNode(filename + ".wav "))
+    li.appendChild(document.createTextNode(filename + ".wav"))
 
     //add the save to disk link to li
     li.appendChild(link);
@@ -156,7 +156,10 @@ function createDownloadLink(blob) {
         };
         var fd = new FormData();
         fd.append("audio_data", blob, filename);
-        xhr.open("POST", "/record", true);
+        xhr.open("POST", "/record", false);
+        var soeid = document.getElementById("soeid").value
+        xhr.form({"soeid": soeid})
+        // console.log(filename)
         xhr.send(fd);
     })
     li.appendChild(document.createTextNode(" "))//add a space in between
