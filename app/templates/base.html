@@ -1,0 +1,14 @@
+<html>
+    <head>
+      {% if title %}
+      <title>{{ title }} - citi</title>
+      {% else %}
+      <title>Welcome to AQUA Testing platform</title>
+      {% endif %}
+    </head>
+    <body>
+        <div>Index: <a href="/index"></a></div>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>
