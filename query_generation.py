@@ -18,8 +18,8 @@ def generate_queries(initial_operators, join_operators, collateral, clause_opera
         query = initial_operator
         assets_combinations = []
         join_operators_combinations = []
-        for r in range(1, len(assets)):
-            assets_combinations.extend(list(combinations(assets, r)))
+        for r in range(1, len(collateral)):
+            assets_combinations.extend(list(combinations(collateral, r)))
             join_operators_combinations.extend(list(combinations_with_replacement(join_operators, r)))
         for assets_combination in assets_combinations:
             if len(assets_combination) == 1:
