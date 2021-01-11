@@ -3,14 +3,14 @@ import numpy as np
 import re
 from itertools import combinations, combinations_with_replacement
 
-
 loc_vocab = "data/vocab-tagged.xlsx"
 loc_queries = "data/queries.txt"
 
 vocab = pd.read_excel(loc_vocab)
 
-vocab = {k:[val for val in v if pd.notnull(val)] for k,v in vocab.to_dict(orient="list").items()}
+vocab = {k: [val for val in v if pd.notnull(val)] for k, v in vocab.to_dict(orient="list").items()}
 vocab["collateral"].extend(vocab.pop("legal_entity"))
+
 
 def generate_queries(initial_operators, join_operators, collateral, clause_operators=None):
     queries = []
@@ -20,14 +20,20 @@ def generate_queries(initial_operators, join_operators, collateral, clause_opera
         join_operators_combinations = []
         for r in range(1, len(collateral)):
             assets_combinations.extend(list(combinations(collateral, r)))
-            join_operators_combinations.extend(list(combinations_with_replacement(join_operators, r)))
+#             join_operators_combinations.extend(list(combinations_with_replacement(join_operators, r)))
+            list_len = r - 1
+            if list_len:
+                join_operators_combinations.extend([['and'] * i + ['but not'] + ['and'] * (list_len-i) for i in range(list_len+1)])
+            else:
+                join_operators_combinations.extend(join_operators)
         for assets_combination in assets_combinations:
             if len(assets_combination) == 1:
                 body = ""
                 body += f"{assets_combination[0]} "
                 queries.append(f"{query} {body}".strip())
             else:
-                for join_operator_combination in [j for j in join_operators_combinations if len(j) == (len(assets_combination) - 1)]:
+                for join_operator_combination in [j for j in join_operators_combinations if
+                                                  len(j) == (len(assets_combination) - 1)]:
                     body = ""
                     query_len = len(assets_combination)
                     for a in range(query_len):
@@ -43,11 +49,13 @@ def generate_queries(initial_operators, join_operators, collateral, clause_opera
             joined_queries.append(not_has_posted_query + " and " + has_posted_query)
 
     not_has_posted_queries.extend(joined_queries)
-    
+
     return not_has_posted_queries
+
 
 queries = generate_queries(**vocab)
 with open(loc_queries, "w") as f:
     for query in queries:
         f.write(query + "\n")
     f.close()
+
