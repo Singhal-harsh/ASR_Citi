@@ -25,7 +25,7 @@ def record():
         # print(request.form)
         # print(request.data)
         f = request.files['audio_data']
-        with open('audio.wav', 'wb') as audio:
+        with open(f'audio_{query_id}.wav', 'wb') as audio:
             f.save(audio)
         print('file uploaded successfully')
 
