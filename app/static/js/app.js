@@ -18,7 +18,7 @@ recordButton.addEventListener("click", startRecording);
 stopButton.addEventListener("click", stopRecording);
 pauseButton.addEventListener("click", pauseRecording);
 
-function startRecording() {
+async function startRecording() {
     console.log("recordButton clicked");
 
     /*
@@ -80,7 +80,7 @@ function startRecording() {
     });
 }
 
-function pauseRecording() {
+async function pauseRecording() {
     console.log("pauseButton clicked rec.recording=", rec.recording);
     if (rec.recording) {
         //pause
@@ -94,7 +94,7 @@ function pauseRecording() {
     }
 }
 
-function stopRecording() {
+async function stopRecording() {
     console.log("stopButton clicked");
 
     //disable the stop button, enable the record too allow for new recordings
@@ -115,7 +115,7 @@ function stopRecording() {
     rec.exportWAV(createDownloadLink);
 }
 
-function createDownloadLink(blob) {
+async function createDownloadLink(blob) {
 
     var url = URL.createObjectURL(blob);
     var au = document.createElement('audio');
@@ -157,8 +157,8 @@ function createDownloadLink(blob) {
         var fd = new FormData();
         fd.append("audio_data", blob, filename);
         xhr.open("POST", "/record", false);
-        var soeid = document.getElementById("soeid").value
-        xhr.form({"soeid": soeid})
+        //var soeid = document.getElementById("soeid").value
+        //xhr.form({"soeid": soeid})
         // console.log(filename)
         xhr.send(fd);
     })
