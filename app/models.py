@@ -1,6 +1,5 @@
 from app import db
 
-
 class Query(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     query_string = db.Column(db.Text, index=True, unique=True)
