@@ -2,7 +2,7 @@ from app import app
 from flask import render_template, request
 from sqlalchemy.sql import func
 from app.models import Query
-
+import os
 
 
 @app.route('/')
@@ -18,7 +18,7 @@ def record():
     # print(request.files)
     query = None
     query = Query.query.order_by(func.random()).first()
-    query_id = query.id
+    # query_id = query.id
     query_string = query.query_string
     if request.method == "POST":
         print("test")
@@ -52,12 +52,17 @@ def view_samples(name=None):
 
 @app.route('/add_new_query' , methods=['POST', 'GET'])
 def add_new_query(name=None):
-    print("testing hello")
-    # print("testing" + text)
     if request.method == 'POST':
         text = (request.form.get('sentence'))
+        print ("Sentence sent is: " + text)
+        with open("data/queries.txt", "a+") as file_object:
+            file_object.write("\n")    
+            file_object.write(text)
+        
+        os.system('python Generate_lm_H.py')
     
     return render_template('add-new-query.html', name=name)
+
    
 #    else:
 #     return render_template('add-new-query.html', name=name)
