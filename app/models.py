@@ -18,8 +18,9 @@ class Department(db.Model):
 
 
 class QueryWAV(db.Model):
-    # __tablename__ = 'querywav'
+    __tablename__ = 'querywav'
     id = db.Column(db.Integer, primary_key=True)
+    query_id = db.Column(db.Integer, db.ForeignKey('query.id'))
     wav_location = db.Column(db.String(64), index=True, unique=True)
 
     def __repr__(self):
@@ -28,5 +29,5 @@ class QueryWAV(db.Model):
 
 recordings = db.Table('recordings',
                       db.Column('query_id', db.Integer, db.ForeignKey('query.id')),
-                      db.Column('recording_id', db.Integer, db.ForeignKey('queryWAV.id'))
+                      db.Column('recording_id', db.Integer, db.ForeignKey('querywav.id'))
                       )

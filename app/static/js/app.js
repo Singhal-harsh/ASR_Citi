@@ -69,7 +69,6 @@ async function startRecording() {
 
         //start the recording process
         rec.record()
-
         console.log("Recording started");
 
     }).catch(function (err) {
@@ -155,15 +154,19 @@ async function createDownloadLink(blob) {
             }
         };
         var fd = new FormData();
+        var soeid = document.getElementById("soeid").value
+        fd.append("soeid", soeid);
         fd.append("audio_data", blob, filename);
+
+        // document.getElementById("soeid").innerText)
         xhr.open("POST", "/record", false);
         //var soeid = document.getElementById("soeid").value
         //xhr.form({"soeid": soeid})
         // console.log(filename)
         xhr.send(fd);
-    })
-    li.appendChild(document.createTextNode(" "))//add a space in between
-    li.appendChild(upload)//add the upload link to li
+    });
+    li.appendChild(document.createTextNode(" ")); //add a space in between
+    li.appendChild(upload); //add the upload link to li
 
     //add the li element to the ol
     recordingsList.appendChild(li);

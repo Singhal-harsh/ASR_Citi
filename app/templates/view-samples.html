@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>View recorded samples</h1>
+<table border="2">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Query</th>
+        <th>File location</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for recording in recordings %}
+
+    <tr>
+        <td>{{ recording.id }}</td>
+        <td>{{ recording.query_string }}</td>
+        <td>{{ recording.wav_location }}</td>
+    </tr>
+
+    {% endfor %}
+
+    </tbody>
+</table>
+
+
+</table>
+
+{% endblock %}
+

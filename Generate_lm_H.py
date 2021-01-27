@@ -138,7 +138,7 @@ def build_lm(output_loc, kenlm_bins, arpa_order, max_arpa_memory, arpa_prune, bi
 
 
 def main():
-    input_loc = 'vocab.txt'
+    input_loc = 'data/queries.txt'
    
     """" parser = argparse.ArgumentParser(
         description="Generate lm.binary and top-k vocab for DeepSpeech."
