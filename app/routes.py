@@ -3,8 +3,8 @@ from flask import render_template, request, session
 from sqlalchemy.sql import func
 from app.models import Query, QueryWAV
 import os
-
-
+from STT_H import predict_text
+from wer import score
 
 @app.route('/')
 @app.route('/index')
@@ -22,9 +22,11 @@ def record():
     # query = None
     allowed_soeids = app.config.get("ALLOWED_SOEIDS")
     query = Query.query.order_by(func.random()).first()
+    posted_query_id = session.get("query_id")
     query_id = query.id
     query_string = query.query_string
     soeid = session.get("soeid", "")
+    session["query_id"] = query_id
 
     if request.method == "POST":
         soeid = request.form.get("soeid")
@@ -36,15 +38,18 @@ def record():
             with open(filepath, 'wb') as audio:
                 f.save(audio)
             print('file uploaded successfully')
-            wav = QueryWAV(query_id=query_id, wav_location=filepath)
+            wav = QueryWAV(query_id=posted_query_id, wav_location=filepath)
             db.session.add(wav)
             db.session.commit()
             predicted_text = predict_text(filepath)
-            true_text = Query.query.filter(Query.id == query_id).one().query_string
-            score = accuracy_score(true_text, predicted_text)
+            true_text = Query.query.filter(Query.id == posted_query_id).one().query_string
+            print(predicted_text)
+            print(true_text)
+            accuracy_score = score(true_text, predicted_text)
+            print(accuracy_score)
 
-        return render_template('record.html', request="POST", title="Record", query=query_string, soeid=soeid,
-                               true_text=true_text, predicted_text=predicted_text, score=score)
+        return render_template('record.html', request="POST", title="Record", query=query_string, soeid=soeid)
+                               #true_text=true_text, predicted_text=predicted_text)
     else:
 
         return render_template("record.html", title="Record", query=query_string, soeid=soeid)

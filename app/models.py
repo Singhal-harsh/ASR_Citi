@@ -2,7 +2,7 @@ from app import db
 
 class Query(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    query_string = db.Column(db.Text, index=True, unique=True)
+    query_string = db.Column(db.Text, index=True) # unique=True, sqlite_on_conflict_unique='IGNORE')
     department_id = db.Column(db.Integer, db.ForeignKey('department.id'))
 
     def __repr__(self):

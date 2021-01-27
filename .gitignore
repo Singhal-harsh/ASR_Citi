@@ -6,3 +6,4 @@ __pycache__/
 *.wav
 data/queries.txt
 queries.txt
+deepspeech-0.8.2-models.pbmm
