@@ -1,26 +1,39 @@
 {% extends "base.html" %}
 
 {% block content %}
+<style>
+  .new_query {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(165, 165, 165);
+  background-size: cover;
+  position: absolute;
+  text-align: center;
+  margin-top: 30px;
+}
+</style>
 
-<form action="http://127.0.0.1:5000/add_new_query" method="POST">
-    <div class="form-group">
-      <label>Sentence you will like to add: </label>
-      <input type="text" name = "sentence" class="form-control" id="sentence" placeholder="Enter new sentence">
-      <input type="submit"  class="btn btn-primary" value ="submit">
-    </div>
-</form>
-<!-- <button type="submit" class="btn btn-primary" onclick="submitClicked()">Submit!</button> -->
+<div class = "new_query">
+  <form  action="http://127.0.0.1:5000/add_new_query" method="POST">
+      <div class="form-group">
+        <label>Sentence you will like to add: </label>
+        <input type="text" name = "sentence" class="form-control" id="sentence" placeholder="Enter new sentence">
+        <input type="submit"  class="btn btn-primary" value ="submit">
+      </div>
+  </form>
+  <!-- <button type="submit" class="btn btn-primary" onclick="submitClicked()">Submit!</button> -->
 
-<script>
+  <script>
 
-  function submitClicked() {
-    console.log("Button clicked");
-    var text = document.getElementById("sentence").value;
-    console.log(text);
+    function submitClicked() {
+      console.log("Button clicked");
+      var text = document.getElementById("sentence").value;
+      console.log(text);
 
-  }
+    }
 
-</script>
+  </script>
 
+</div>
 
 {% endblock %}

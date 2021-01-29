@@ -27,6 +27,10 @@ def record():
     query_string = query.query_string
     soeid = session.get("soeid", "")
     session["query_id"] = query_id
+    true_text = session.get("true_text", None)
+    predicted_text = session.get("predicted_text", None)
+    accuracy_score = session.get("accuracy_score", None)
+
 
     if request.method == "POST":
         soeid = request.form.get("soeid")
@@ -47,13 +51,18 @@ def record():
             print(true_text)
             accuracy_score = score(true_text, predicted_text)
             print(accuracy_score)
+            session["true_text"]= true_text
+            session["predicted_text"]= predicted_text
+            session["accuracy_score"]= accuracy_score
+            
 
-        return render_template('record.html', request="POST", title="Record", query=query_string, soeid=soeid)
-                               #true_text=true_text, predicted_text=predicted_text)
+        return render_template('record.html', request="POST", title="Record", query=query_string, soeid=soeid,
+                               true_text=true_text, predicted_text=predicted_text, accuracy_score=accuracy_score)
+    
     else:
 
-        return render_template("record.html", title="Record", query=query_string, soeid=soeid)
-
+        return render_template('record.html', title="Record", query=query_string, soeid=soeid,
+                               true_text=true_text, predicted_text=predicted_text, accuracy_score=accuracy_score)
 
 @app.route('/record_random')
 def record_random(name=None):
