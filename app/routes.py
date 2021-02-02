@@ -1,5 +1,5 @@
 from app import app, db
-from flask import render_template, request, session
+from flask import render_template, request, session, url_for, redirect
 from sqlalchemy.sql import func
 from app.models import Query, QueryWAV
 import os
@@ -21,7 +21,11 @@ def record():
     # print(request.files)
     # query = None
     allowed_soeids = app.config.get("ALLOWED_SOEIDS")
-    query = Query.query.order_by(func.random()).first()
+    query_id = session.get("query_id")
+    if query_id:
+        query = Query.query.filter(Query.id==query_id).all()[0]
+    else:
+        query = Query.query.order_by(func.random()).first()
     posted_query_id = session.get("query_id")
     query_id = query.id
     query_string = query.query_string
@@ -77,14 +81,24 @@ def view_samples():
 @app.route('/add_new_query', methods=['POST', 'GET'])
 def add_new_query(name=None):
     if request.method == 'POST':
-        text = (request.form.get('sentence'))
-        print("Sentence sent is: " + text)
-        with open("data/queries.txt", "a+") as file_object:
-            file_object.write("\n")
-            file_object.write(text)
+        text = (request.form.get('sentence')).lower()
+        db_query = Query.query.filter(Query.query_string==text).all()
+        if db_query:
+            db_query = db_query[0]
+            session["query_id"] = db_query.id
+        else:
+            new_id = db.session.query(Query, func.max(Query.id)).one()[0].id + 1
+            new_query = Query(id=new_id, query_string=text)
+            db.session.add(new_query)
+            db.session.commit()
+            print("Sentence added is: " + text)
+            with open("data/queries.txt", "a+") as file_object:
+                file_object.write("\n")
+                file_object.write(text)
 
-        os.system('python Generate_lm_H.py')
-
+            os.system('python Generate_lm_H.py')
+            session["query_id"] = new_id
+        return redirect(url_for('record'))
     return render_template('add-new-query.html', name=name)
 
 #    else:
