@@ -19,9 +19,11 @@ cgma
 cref
 cbna
 the
-show
-me
-exposure
-to
 gilt
 linker
+show
+exposure
+of
+me
+to
+status

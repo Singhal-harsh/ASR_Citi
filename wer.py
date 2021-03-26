@@ -194,7 +194,7 @@ def wer(r, h):
     result = str("%.2f" % result) + "%"
     accuracy = str("%.2f" % accuracy) + "%"
     alignedPrint(list, r, h, result)
-    return accuracy 
+    return accuracy
     
 
 def score(a,b):
